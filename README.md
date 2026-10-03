@@ -1,4 +1,3 @@
-## 6. Ejecución
 
 Inicie Jupyter **desde la carpeta raíz del repositorio**, para que se encuentre el archivo `.env`:
 
