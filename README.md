@@ -39,6 +39,109 @@ Ejecuta una sección por requisito y, al final, imprime un resumen de cumplimien
 
 Los tiempos de ejecución dependen del equipo. La creación de índices y la primera consulta a las vistas MapReduce pueden tardar algunos segundos o minutos, porque CouchDB construye esas estructuras sobre los 85 000 documentos.
 
+## 5. Instalación
+
+### 5.1 Prerrequisitos
+
+| Herramienta | Versión sugerida | Para qué se usa |
+|---|---|---|
+| Python | 3.10 o superior | Ejecutar los notebooks |
+| Apache CouchDB | 3.5.2 | Base de datos documental |
+| Docker y Docker Compose | Versión reciente | Alternativa para ejecutar CouchDB en un contenedor |
+| Git | Cualquiera | Clonar el repositorio |
+
+El proyecto puede ejecutarse con una instalación local de Apache CouchDB o mediante Docker. En ambos casos, los notebooks se conectan a CouchDB mediante HTTP utilizando el puerto 5984.
+
+Si ya cuenta con Apache CouchDB instalado localmente, puede omitir Docker y configurar los datos de conexión mediante el archivo `.env`.
+
+### 5.2 Clonar el repositorio y configurar CouchDB
+
+```bash
+git clone [URL_DEL_REPOSITORIO]
+cd [NOMBRE_DEL_REPOSITORIO]
+```
+
+El repositorio incluye un archivo docker-compose.yml que permite iniciar CouchDB mediante Docker.
+
+```yaml
+services:
+  couchdb:
+    image: couchdb:3.5.2
+    container_name: mercadotico-couchdb
+    ports:
+      - "5984:5984"
+    environment:
+      COUCHDB_USER: ${COUCHDB_USER}
+      COUCHDB_PASSWORD: ${COUCHDB_PASS}
+    volumes:
+      - couchdb_data:/opt/couchdb/data
+
+volumes:
+  couchdb_data:
+```
+
+### 5.3 Entorno de Python
+
+El repositorio incluye el archivo requirements.txt con las dependencias necesarias:
+
+```text
+requests
+python-dotenv
+ipykernel
+notebook
+```
+
+Cree y active un entorno virtual, e instale las dependencias:
+
+```bash
+python -m venv .venv
+
+# Linux / macOS
+source .venv/bin/activate
+# Windows (PowerShell)
+.venv\Scripts\Activate.ps1
+
+python -m pip install -r requirements.txt
+```
+
+### 5.4 Configuración de credenciales
+
+El repositorio **no contiene contraseñas**. Copie la plantilla y complete sus propios valores:
+
+```bash
+cp .env.example .env        # En Windows: copy .env.example .env
+```
+
+Copie el archivo `.env.example` como `.env` y complete sus credenciales:
+
+```text
+COUCHDB_HOST=localhost
+COUCHDB_PORT=5984
+COUCHDB_USER=admin
+COUCHDB_PASS=
+DATABASE_NAME=mercadotico360
+```
+
+Edite `.env` y escriba una contraseña en `COUCHDB_PASS`. Verifique que `.gitignore` contenga la línea `.env` para no subir sus credenciales por accidente.
+
+> Si no existe un archivo `.env`, los notebooks preguntan cada dato al ejecutarse (la contraseña se oculta al escribirla).
+
+### 5.5 Iniciar CouchDB
+
+Si utiliza Docker, inicie el servicio con:
+
+```bash
+docker compose up -d
+```
+
+Para comprobar que el servicio responde:
+
+```bash
+curl http://localhost:5984/
+```
+
+Debe devolver un JSON de bienvenida con la versión de CouchDB. Además, puede explorar los datos desde el panel web **Fauxton**: <http://localhost:5984/_utils>.
+
 ## 7. Pruebas y evidencias
 
 | Evidencia solicitada | Cómo se obtiene |
