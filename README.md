@@ -266,7 +266,7 @@ Luego ejecute otra vez los dos notebooks en orden.
 
 | Nombre | Carnet |
 |---|---|
-| Carlos Armando Soto Monge | [Carnet] | 
+| Carlos Armando Soto Monge | [B67061] | 
 | Ericka Marisol Quesada Madrigal | [C26111] | 
 | Evelio De Los Ángeles Chinchilla Rosales | [A91830] |
 | Gustavo Jhosua Vargas Viales | [C38271] |
