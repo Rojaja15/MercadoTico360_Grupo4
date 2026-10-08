@@ -39,6 +39,64 @@ Ejecuta una sección por requisito y, al final, imprime un resumen de cumplimien
 
 Los tiempos de ejecución dependen del equipo. La creación de índices y la primera consulta a las vistas MapReduce pueden tardar algunos segundos o minutos, porque CouchDB construye esas estructuras sobre los 85 000 documentos.
 
+## 4. Modelo de datos
+
+La base de datos usa **un solo contenedor lógico** con tres tipos de documento, distinguidos por el campo `type`.
+
+| Tipo | `_id` | Decisión de diseño | Justificación |
+|---|---|---|---|
+| `product` | `PROD-000001` | Documento propio con `atributos` **embebidos** | Cada categoría tiene atributos distintos; viven dentro del producto sin esquema fijo. |
+| `customer` | `CLI-000001` | Documento propio | Un cliente puede tener muchos pedidos. Embeberlos haría crecer el documento sin límite. |
+| `order` | `PED-000001` | `lineas_detalle` **embebidas**; `cliente_id` y `producto_id` **referenciados** | Las líneas de detalle forman parte del pedido y normalmente se consultan junto con este. Cada línea guarda un *snapshot* (nombre, categoría y precio) para reconstruir la compra aunque el producto cambie. |
+
+**Ejemplo de producto** (categoría `Tecnologia`):
+
+Los precios utilizados en los datos sintéticos se expresan en colones costarricenses y se generan dentro de rangos definidos para cada categoría.
+
+```json
+{
+  "_id": "PROD-000123",
+  "type": "product",
+  "nombre": "Laptop 123",
+  "categoria": "Tecnologia",
+  "precio": 845000,
+  "stock": 120,
+  "atributos": { "marca": "TechBrand-7", "ram_gb": 16, "almacenamiento_gb": 512 }
+}
+```
+
+**Ejemplo de pedido** (estructura anidada):
+
+```json
+{
+  "_id": "PED-000001",
+  "type": "order",
+  "cliente_id": "CLI-004637",
+  "fecha_pedido": "2026-07-14",
+  "estado": "pendiente",
+  "monto_total": 25000,
+  "lineas_detalle": [
+    {
+      "producto_id": "PROD-009498",
+      "nombre_snapshot": "Alimento para mascota 9498",
+      "categoria_snapshot": "Mascotas",
+      "cantidad": 2,
+      "precio_unitario": 12500,
+      "subtotal": 25000
+    }
+  ]
+}
+```
+
+**Índices creados**
+
+| Índice | Campos | Consulta que acelera |
+|---|---|---|
+| `idx_product_category` | `type`, `categoria` | Productos de una categoría |
+| `idx_product_price` | `type`, `precio` | Productos en un rango de precios |
+| `idx_technology_ram` | `type`, `categoria`, `atributos.ram_gb` | Atributo específico de una categoría |
+| `idx_pedidos_cliente` | `type`, `cliente_id` | Historial de pedidos de un cliente |
+
 ## 5. Instalación
 
 ### 5.1 Prerrequisitos
