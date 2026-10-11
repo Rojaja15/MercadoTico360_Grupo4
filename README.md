@@ -1,8 +1,11 @@
 # MercadoTico 360: Solución orientada a documentos con Apache CouchDB
 
-**Curso:** XS0131 – Gestión de Bases de Datos y Análisis de Información
+**Curso:** XS0131 - Gestión de Bases de Datos y Análisis de Información
+
 **Actividad:** Investigación Grupal 1 – Desafío NoSQL
-**Caso asignado:** Caso 2 – MercadoTico 360 (modelo de **documentos**)
+
+**Caso asignado:** Caso 2 - MercadoTico 360 (modelo de **documentos**)
+
 **Tecnología:** Apache CouchDB 3.5.2
 
 ---
@@ -122,8 +125,8 @@ Si ya cuenta con Apache CouchDB instalado localmente, puede omitir Docker y conf
 ### 5.2 Clonar el repositorio y configurar CouchDB
 
 ```bash
-git clone [URL_DEL_REPOSITORIO]
-cd [NOMBRE_DEL_REPOSITORIO]
+git clone https://github.com/Rojaja15/MercadoTico360_Grupo4.git
+cd MercadoTico360_Grupo4
 ```
 
 El repositorio incluye un archivo docker-compose.yml que permite iniciar CouchDB mediante Docker.
@@ -318,7 +321,7 @@ Luego ejecute otra vez los dos notebooks en orden.
 
 | Nombre | Carnet |
 |---|---|
-| Carlos Armando Soto Monge | [Carnet] | 
+| Carlos Armando Soto Monge | [B67061] | 
 | Ericka Marisol Quesada Madrigal | [C26111] | 
 | Evelio De Los Ángeles Chinchilla Rosales | [A91830] |
 | Gustavo Jhosua Vargas Viales | [C38271] |
@@ -328,11 +331,11 @@ Luego ejecute otra vez los dos notebooks en orden.
 
 - Apache Software Foundation. *Apache CouchDB Documentation*. Disponible en: <https://docs.couchdb.org/en/stable/>
 
-- Apache Software Foundation. *Mango: consultas declarativas (`_find`) e índices*. Disponible en: <https://docs.couchdb.org/en/stable/api/database/find.html>
+- Apache Software Foundation. *Mango Queries*. *Apache CouchDB 3.5 Documentation*. Disponible en: <https://docs.couchdb.org/en/stable/ddocs/mango.html>
 
 - Apache Software Foundation. *Design Documents: vistas, update handlers y validación*. Disponible en: <https://docs.couchdb.org/en/stable/ddocs/ddocs.html>
 
-- ICEX España Exportación e Inversiones. *Informe e-País: Comercio electrónico en Costa Rica 2025 — Resumen ejecutivo*. Oficina Económica y Comercial de España en San José, 2025. Disponible en: <https://www.icex.es/content/dam/icex/centros/costa-rica/documentos/2025/informe-epais-comercio-electronico-costa-rica-2025-resumen-ejecutivo.pdf>
+- D. Díaz Salinas. *Informe e-País: El comercio electrónico en Costa Rica 2025. Resumen ejecutivo*. ICEX España Exportación e Inversiones, Oficina Económica y Comercial de España en Panamá, abril de 2025. Disponible en: <https://www.icex.es/content/dam/icex/centros/costa-rica/documentos/2025/informe-epais-comercio-electronico-costa-rica-2025-resumen-ejecutivo.pdf>
 
 - NIC Costa Rica. *NIC Costa Rica participó en el Ecommerce & Delivery Forum para acercar el comercio en línea a las PYMES*. 2 sep. 2026. Disponible en: <https://nic.cr/2026/09/02/nic-costa-rica-participo-en-el-ecommerce-delivery-forum-para-acercar-el-comercio-en-linea-a-las-pymes/>
 

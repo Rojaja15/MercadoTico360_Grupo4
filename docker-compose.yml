@@ -1,0 +1,14 @@
+services:
+  couchdb:
+    image: couchdb:3.5.2
+    container_name: mercadotico-couchdb
+    ports:
+      - "5984:5984"
+    environment:
+      COUCHDB_USER: ${COUCHDB_USER}
+      COUCHDB_PASSWORD: ${COUCHDB_PASS}
+    volumes:
+      - couchdb_data:/opt/couchdb/data
+
+volumes:
+  couchdb_data:
